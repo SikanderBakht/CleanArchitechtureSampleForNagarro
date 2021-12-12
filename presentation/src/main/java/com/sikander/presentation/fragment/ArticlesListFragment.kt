@@ -5,14 +5,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayoutMediator
+import com.sikander.data.articles.entity.NewArticleResponse
 import com.sikander.domain.base.Failure
 import com.sikander.presentation.R
+import com.sikander.presentation.State
 import com.sikander.presentation.adapter.ArticleListAdapter
 import com.sikander.presentation.adapter.LoadingStateAdapter
+import com.sikander.presentation.adapter.NewArticleListAdapter
 import com.sikander.presentation.base.RecyclerItem
 import com.sikander.presentation.databinding.FragmentArticlesListBinding
 import com.sikander.presentation.extension.collectIn
@@ -21,6 +26,9 @@ import com.sikander.presentation.extension.viewBinding
 import com.sikander.presentation.extension.visible
 import com.sikander.presentation.viewmodel.ArticleListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
@@ -30,6 +38,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     private val articleListViewModel: ArticleListViewModel by viewModels()
 
+    private lateinit var newArticleListAdapter: NewArticleListAdapter
     private val articleListAdapter: ArticleListAdapter by lazy {
         ArticleListAdapter(::showToast)
         //ArticleListAdapter(::navigateToProductDetail)
@@ -45,8 +54,19 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewByCoroutine()
-        setupRecycler()
+        lifecycleScope.launch {
+            delay(500)
+            articleListViewModel.getSampleResponse().collect {
+                when (it) {
+
+                    is State.DataState -> setArticlesAdapter(it.data.results)
+                    /*is State.ErrorState -> textView.text = "error ${it.exception}"
+                    is State.LoadingState -> textView.text = "loading"*/
+                }
+            }
+        }
+        //setupViewByCoroutine()
+        //setupRecycler()
     }
 
     private fun setupViewByCoroutine() {
@@ -120,5 +140,16 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
         binding.rvArticles.gone()
         Toast.makeText(activity, "API Error", Toast.LENGTH_SHORT).show()
         binding.tvError.visible()
+    }
+
+    private fun setArticlesAdapter(newArticlesList :List<NewArticleResponse>) {
+        activity?.let {
+            if(isAdded) {
+                val adapter = NewArticleListAdapter(newArticlesList)
+                binding.rvArticles.adapter = adapter
+                newArticleListAdapter = adapter
+            }
+
+        }
     }
 }
