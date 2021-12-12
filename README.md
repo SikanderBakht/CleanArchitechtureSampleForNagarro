@@ -1,1 +1,1 @@
-# CleanArchitechtureSampleForNagarro
+# CleanArchitechtureSampleWithJetpacks
