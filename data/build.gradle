@@ -20,7 +20,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", 'BASE_URL', '"https://api.nytimes.com/"'
+            //buildConfigField "String", 'BASE_URL', '"https://api.nytimes.com/"'
+            buildConfigField "String", 'BASE_URL', '"https://api.punkapi.com/v2/"'
             buildConfigField "boolean", 'DEBUG', 'false'
             buildConfigField "String", 'API_KEY', '"eDit4rvwgo5MDgTzEdyTe1hQKrTe9QVW"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -28,7 +29,7 @@ android {
         release {
             minifyEnabled false
             buildConfigField "boolean", 'DEBUG', 'true'
-            buildConfigField "String", 'BASE_URL', '"https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=eDit4rvwgo5MDgTzEdyTe1hQKrTe9QVW"'
+            buildConfigField "String", 'BASE_URL', '"https://api.punkapi.com/v2/"'
             buildConfigField "String", 'API_KEY', '"eDit4rvwgo5MDgTzEdyTe1hQKrTe9QVW"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

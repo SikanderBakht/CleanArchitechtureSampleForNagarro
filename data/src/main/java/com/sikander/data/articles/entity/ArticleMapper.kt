@@ -10,9 +10,10 @@ class ArticleMapper : Mapper<ArticleResponse, Article> {
         Article(
             id = id,
             name = name,
-            title = title,
-            byLine = byLine,
-            publishedDate = publishedDate
+            tagline = tagline,
+            description = description,
+            imageUrl = imageUrl,
+            abv = abv
         )
     }
 

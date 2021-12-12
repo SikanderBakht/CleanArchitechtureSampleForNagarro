@@ -66,7 +66,7 @@ open class BaseViewModel  @Inject constructor() : ViewModel(),
         super.onCleared()
     }
 
-    fun handleFailure(throwable: Throwable, retryAction: () -> Unit) {
+    fun handleFailure(throwable: Throwable, retryAction: () -> Unit?) {
         val failure = when (throwable) {
             is Failure.NoInternet -> {
                 Failure.NoInternet(resources.getString(R.string.error_no_internet))
@@ -85,7 +85,7 @@ open class BaseViewModel  @Inject constructor() : ViewModel(),
             }
         }
 
-        failure.retryAction = retryAction
+        failure.retryAction = retryAction as () -> Unit
         viewModelScope.launch {
             _failure.send(failure)
         }

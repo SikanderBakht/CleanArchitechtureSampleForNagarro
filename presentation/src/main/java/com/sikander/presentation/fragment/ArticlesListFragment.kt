@@ -3,7 +3,6 @@ package com.sikander.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.CombinedLoadStates
@@ -52,7 +51,7 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
 
     private fun setupViewByCoroutine() {
         articleListViewModel.run {
-            productsListByCoroutine.collectIn(viewLifecycleOwner) {
+            articlesListByCoroutine.collectIn(viewLifecycleOwner) {
                 addProductsList(it)
             }
 
@@ -89,7 +88,9 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
                 else -> null
             }
             error?.run {
-                //articleListViewModel.handleFailure(this.error) { retryFetchData() }
+                articleListViewModel.handleFailure(this.error) {
+
+                }
             }
         }
     }
@@ -118,18 +119,6 @@ class ArticlesListFragment : Fragment(R.layout.fragment_articles_list) {
     private fun handleFailure(failure: Failure) {
         binding.rvArticles.gone()
         Toast.makeText(activity, "API Error", Toast.LENGTH_SHORT).show()
-        /*binding.inclItemError.itemErrorContainer.visible()
-        when (failure) {
-            is Failure.NoInternet, is Failure.Api, is Failure.Timeout -> {
-                setupErrorItem(failure)
-            }
-            is Failure.Unknown -> {
-                setupErrorItem(failure)
-            }
-            else -> {
-                binding.inclItemError.itemErrorMessage.text = failure.message
-                binding.inclItemError.itemErrorRetryBtn.invisible()
-            }
-        }*/
+        binding.tvError.visible()
     }
 }

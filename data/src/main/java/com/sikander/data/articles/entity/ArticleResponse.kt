@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class ArticleResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
-    @SerializedName("title") val title: String,
-    @SerializedName("byline") val byLine: String,
-    @SerializedName("published_date") val publishedDate: String?
+    @SerializedName("tagline") val tagline: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("image_url") val imageUrl: String?,
+    @SerializedName("abv") val abv: Double,
 )

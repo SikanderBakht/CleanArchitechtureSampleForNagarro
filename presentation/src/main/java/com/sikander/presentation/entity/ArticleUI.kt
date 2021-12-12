@@ -8,7 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class ArticleUI(
     override val id: Int,
     val name: String,
-    val title: String,
-    val byLine: String,
-    val publishedDate: String?
+    val tagline: String,
+    val description: String,
+    val imageUrl: String?,
+    val abv: Double
 ) : RecyclerItem, Parcelable

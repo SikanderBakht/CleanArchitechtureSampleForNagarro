@@ -6,14 +6,10 @@ import com.sikander.presentation.entity.ArticleUI
 
 class ArticleViewHolder(val itemBinding: ArticleItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
-    fun bind(beer: ArticleUI) = with(itemView) {
-        itemBinding.tvArticleAuthor.text = beer.title
-        /*itemBinding.itemProductContainer.transitionName = beer.id.toString()
-        itemBinding.itemProductIdTxv.text = beer.id.toString()
-        itemBinding.itemProductImv.load(beer.imageUrl)
-        itemBinding.itemProductNameTxv.text = beer.name
-        itemBinding.itemProductAbvTxv.text = beer.abv.toString()
-        //itemBinding.itemProductTypeTxv.text = beer.type*/
+    fun bind(article: ArticleUI) = with(itemView) {
+        itemBinding.tvArticleTitle.text = article.description
+        itemBinding.tvArticleAuthor.text = article.tagline
+        itemBinding.tvArticleFirstLetter.text = article.description
     }
 
 }

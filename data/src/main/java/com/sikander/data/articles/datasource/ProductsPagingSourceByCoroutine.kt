@@ -4,7 +4,7 @@ import androidx.annotation.NonNull
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.sikander.data.articles.entity.ArticleMapper
-import com.sikander.data.articles.remote.ProductsApi
+import com.sikander.data.articles.remote.ApiService
 import com.sikander.domain.articles.entity.Article
 import com.sikander.domain.base.Failure
 import java.net.SocketTimeoutException
@@ -18,7 +18,7 @@ private const val STARTING_PAGE_INDEX = 1
 
 @Singleton
 class ProductsPagingSourceByCoroutine @Inject constructor(
-    private val productsApi: ProductsApi,
+    private val apiService: ApiService,
     //private val query: String
 ) : PagingSource<Int, Article>() {
 
@@ -27,7 +27,7 @@ class ProductsPagingSourceByCoroutine @Inject constructor(
         //val apiQuery = query
 
         return try {
-            val response = productsApi.getBeersListByCoroutine(/*position*/)
+            val response = apiService.getArticlesListByCoroutine(/*position*/)
                 .map {
                     ArticleMapper().mapLeftToRight(it)
                 }

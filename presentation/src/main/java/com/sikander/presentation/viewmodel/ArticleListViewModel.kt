@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,21 +21,21 @@ class ArticleListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
-    private val _productsListByCoroutine =
+    private val _articlesListByCoroutine =
         MutableStateFlow<PagingData<RecyclerItem>>(PagingData.empty())
-    val productsListByCoroutine: Flow<PagingData<RecyclerItem>> = _productsListByCoroutine
+    val articlesListByCoroutine: Flow<PagingData<RecyclerItem>> = _articlesListByCoroutine
 
     init {
-        getProductsBaseOnPath("")
+        getArticles("")
     }
 
     private fun getArticlesList(ids: String) =
         getArticlesListUseCase(GetArticlesListParams(ids = ids))
     /*.cachedIn(viewModelScope)*/
 
-    private fun getProductsBaseOnPath(ids: String) {
+    private fun getArticles(ids: String) {
         viewModelScope.launch {
-            _productsListByCoroutine.value = getArticlesList(ids).first()
+            _articlesListByCoroutine.value = getArticlesList(ids).first()
                 .map { article ->
                     ArticleMapper().mapLeftToRight(article)
                 }

@@ -1,6 +1,6 @@
 package com.sikander.nagarrocleanarchassignment.application.module
 
-import com.sikander.data.articles.remote.ProductsApi
+import com.sikander.data.articles.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun products(retrofit: Retrofit): ProductsApi =
-        retrofit.create(ProductsApi::class.java)
+    fun products(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 
 }

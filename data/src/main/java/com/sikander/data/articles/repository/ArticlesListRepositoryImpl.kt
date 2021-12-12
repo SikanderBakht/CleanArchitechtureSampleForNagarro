@@ -12,7 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProductsListRepositoryImpl @Inject constructor(
+class ArticlesListRepositoryImpl @Inject constructor(
 
     private val pagingSourceByCoroutine: ProductsPagingSourceByCoroutine
 ) : ArticlesListRepository {

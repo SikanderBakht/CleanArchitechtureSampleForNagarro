@@ -1,7 +1,7 @@
 package com.sikander.nagarrocleanarchassignment.application.module
 
 import com.sikander.data.articles.datasource.ProductsPagingSourceByCoroutine
-import com.sikander.data.articles.repository.ProductsListRepositoryImpl
+import com.sikander.data.articles.repository.ArticlesListRepositoryImpl
 import com.sikander.domain.articles.repository.ArticlesListRepository
 import dagger.Module
 import dagger.Provides
@@ -18,6 +18,6 @@ class RepositoryModule {
     fun productsList(
         pagingSourceByCoroutine: ProductsPagingSourceByCoroutine
     ): ArticlesListRepository =
-        ProductsListRepositoryImpl(pagingSourceByCoroutine)
+        ArticlesListRepositoryImpl(pagingSourceByCoroutine)
 
 }

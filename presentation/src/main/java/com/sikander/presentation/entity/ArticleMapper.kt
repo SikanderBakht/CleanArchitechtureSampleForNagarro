@@ -9,9 +9,10 @@ class ArticleMapper : Mapper<Article, ArticleUI> {
         ArticleUI(
             id = id,
             name = name,
-            title = title,
-            byLine = byLine,
-            publishedDate = publishedDate,
+            tagline = tagline,
+            description = description,
+            imageUrl = imageUrl,
+            abv = abv
         )
     }
 
