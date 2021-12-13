@@ -3,6 +3,7 @@ package com.sikander.presentation.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.sikander.domain.articles.usecase.GetArticlesListParams
 import com.sikander.domain.articles.usecase.GetArticlesListUseCase
@@ -31,6 +32,7 @@ class ArticleListViewModel @Inject constructor(
 
     private fun getArticlesList(ids: String) =
         getArticlesListUseCase(GetArticlesListParams(ids = ids))
+            .cachedIn(viewModelScope      )
     /*.cachedIn(viewModelScope)*/
 
     private fun getArticles(ids: String) {
